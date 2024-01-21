@@ -108,29 +108,83 @@ class _SpinWheelState extends State<SpinWheel> {
               selectedIndex = items.indexOf(11); // Index of the highest value
             } else {
               List<int> shuffledItems = items
-                  .map((item) => item is int ? items.indexOf(item) : -1)
-                  .toList()
-                  ..removeWhere((index) => index == -1);
-              selectedIndex = shuffledItems.isNotEmpty
-                  ? Random().nextInt(shuffledItems.length)
-                  : 0; // Default to 0 if only text prizes are left
-            }
-          } else {
-            List<int> shuffledItems = items
                 .map((item) => item is int ? items.indexOf(item) : -1)
                 .toList()
                 ..removeWhere((index) => index == -1);
-            selectedIndex = shuffledItems.isNotEmpty
+              selectedIndex = shuffledItems.isNotEmpty
                 ? Random().nextInt(shuffledItems.length)
                 : 0; // Default to 0 if only text prizes are left
+            }
+          } else {
+            List<int> shuffledItems = items
+              .map((item) => item is int ? items.indexOf(item) : -1)
+              .toList()
+              ..removeWhere((index) => index == -1);
+            selectedIndex = shuffledItems.isNotEmpty
+              ? Random().nextInt(shuffledItems.length)
+              : 0; // Default to 0 if only text prizes are left
           }
-        }
-        );
-      }
+          selected.add(selectedIndex);
+        });
+      },
     );
   }
 
+  Widget buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.money), label: "TopUp"),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.money_off_rounded),
+          label: "CashOut",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: "Profile",
+        ),
+      ],
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: Colors.red,
+      unselectedItemColor: Colors.black,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      onTap: (value) {
+        print("Selected Index: $value");
+
+        if (value == 2) {
+          navigateToRegistrationPage();
+        }
+      },
+      currentIndex: 0,
+    );
+  }
+
+ void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+
+  void navigateToRegistrationPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RegistrationPage()),
+    );
+  }
 }
 
-
-         
+class RegistrationPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Registration Page'),
+      ),
+      body: Center(
+        child: Text('This is the Registration Page'),
+      ),
+    );
+  }
+}
