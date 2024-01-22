@@ -3,22 +3,14 @@ import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:math';
 
-void main() {
-  runApp(
-    MaterialApp(
-      home: SpinWheel(),
-    ),
-  );
-}
-
-class SpinWheel extends StatefulWidget {
-  const SpinWheel({Key? key}) : super(key: key);
+class SpinWheelHome extends StatefulWidget {
+  const SpinWheelHome({Key? key}) : super(key: key);
 
   @override
-  State<SpinWheel> createState() => _SpinWheelState();
+  State<SpinWheelHome> createState() => _SpinWheelHomeState();
 }
 
-class _SpinWheelState extends State<SpinWheel> {
+class _SpinWheelHomeState extends State<SpinWheelHome> {
   final selected = BehaviorSubject<int>();
   int rewards = 0;
   int spinCount = 0;
