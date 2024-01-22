@@ -1,12 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:rxdart/rxdart.dart';
-
+import 'dart:math';
 
 class SpinWheelHome extends StatefulWidget {
-  const SpinWheelHome({Key? key}) : super(key: key);
+  const SpinWheelHome({super.key});
 
   @override
   State<SpinWheelHome> createState() => _SpinWheelHomeState();
@@ -14,6 +12,7 @@ class SpinWheelHome extends StatefulWidget {
 
 class _SpinWheelHomeState extends State<SpinWheelHome> {
   final selected = BehaviorSubject<int>();
+  int rewards = 0;
   int spinCount = 0;
 
   List<dynamic> items = [
@@ -57,32 +56,35 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
   }
 
   Widget buildFortuneWheel() {
-    return SizedBox.expand(
-      child: FortuneWheel(
-        selected: selected.stream,
-        animateFirst: false,
-        items: [
-          for (int i = 0; i < items.length; i++)
-            FortuneItem(child: Text(items[i].toString())),
-        ],
-        onAnimationEnd: () {
-          setState(() {
-            spinCount++;
 
-            if (spinCount % 10 == 0) {
-              showSnackBar("Congratulations! You just won an additional 10 Cedis!");
-            }
+  return SizedBox(
+    height: 250,
+    child: FortuneWheel(
+      selected: selected.stream,
+      animateFirst: false,
+      items: [
+      for (int i = 0; i < items.length; i++)
+        FortuneItem(child: Text(items[i].toString())),
+    ],
+    onAnimationEnd: () {
+        setState(() {
+          spinCount++;
 
-            if (spinCount % 20 == 0) {
-              showSnackBar("Amazing! You just won an additional 15 Cedis!");
-            }
-          });
+          if (spinCount % 10 == 0) {
+            showSnackBar("Congratulations! You just won an additional 10 Cedis!");
+          }
 
-          showSnackBar("You just won ${items[selected.value]} Cedis!");
-        },
-      ),
+          if (spinCount % 20 == 0) {
+            showSnackBar("Amazing! You just won an additional 15 Cedis!");
+          }
+        });
+
+        showSnackBar("You just won ${items[selected.value]} Cedis!");
+      },
+      )
     );
-  }
+}
+
 
   Widget buildSpinButton() {
     return ElevatedButton(
