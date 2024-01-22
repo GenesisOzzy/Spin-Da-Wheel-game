@@ -24,7 +24,7 @@ class _SpinWheelState extends State<SpinWheel> {
   int spinCount = 0;
 
   List<dynamic> items = [
-    "Sweatshirt",
+    "Try Again",
     "Free Lunch",
     11,
     0,
