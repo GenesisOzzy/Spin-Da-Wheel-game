@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'package:list_projects/spinwheel_registration.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:math';
 
@@ -18,7 +19,7 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
   List<dynamic> items = [
     "Try Again",
     "Free Lunch",
-    11,
+    1,
     0,
     5,
     "Milk Pack",
@@ -126,12 +127,14 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
 
   Widget buildBottomNavigationBar() {
     return BottomNavigationBar(
+      
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.money), label: "TopUp"),
         BottomNavigationBarItem(
           icon: Icon(Icons.money_off_rounded),
           label: "CashOut",
-        ),
+           ),
+           
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: "Profile",
@@ -140,8 +143,8 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.red,
       unselectedItemColor: Colors.black,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
       onTap: (value) {
         print("Selected Index: $value");
 
@@ -165,20 +168,6 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RegistrationPage()),
-    );
-  }
-}
-
-class RegistrationPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Registration Page'),
-      ),
-      body: Center(
-        child: Text('This is the Registration Page'),
-      ),
     );
   }
 }
