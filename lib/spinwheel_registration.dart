@@ -10,7 +10,7 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,22 +67,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
             TextField(
               controller: nameController,
               decoration: InputDecoration(
-                labelText: 'Name',
+                labelText: 'Full Name',
               ),
             ),
             SizedBox(height: 16.0),
             TextField(
               controller: emailController,
               decoration: InputDecoration(
-                labelText: 'Email',
+                labelText: 'Email Address',
               ),
             ),
             SizedBox(height: 16.0),
             TextField(
-              controller: passwordController,
+              controller: phoneController,
               obscureText: true,
               decoration: InputDecoration(
-                labelText: 'Password',
+                labelText: 'Phone Number',
               ),
             ),
             SizedBox(height: 32.0),
@@ -91,7 +91,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 // Add your registration logic here
                 String name = nameController.text;
                 String email = emailController.text;
-                String password = passwordController.text;
+                String password = phoneController.text;
 
                 // Display registration information (for demonstration purposes)
                 showDialog(
@@ -105,7 +105,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         children: [
                           Text('Name: $name'),
                           Text('Email: $email'),
-                          Text('Password: $password'),
+                          Text('Phone Number: $password'),
                         ],
                       ),
                       actions: [
@@ -120,7 +120,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   },
                 );
               },
-              child: Text('Register'),
+              child: Text('Submit Information'),
             ),
           ],
         ),
