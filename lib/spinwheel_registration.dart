@@ -129,10 +129,3 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 }
 
-void main() {
-  runApp(
-    MaterialApp(
-      home: RegistrationPage(),
-    ),
-  );
-}
