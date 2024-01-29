@@ -57,35 +57,110 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
   }
 
   Widget buildFortuneWheel() {
+    return SizedBox(
+        height: 350,
+        child: FortuneWheel(
+          selected: selected.stream,
+          animateFirst: false,
+          items: [
+            FortuneItem(
+                child: Text("Try Again"),
+                style: FortuneItemStyle(
+                  color: Colors.red,
+                  // you won try again
+                  //index number 0
+                )),
+            FortuneItem(
+                child: Text("Free Lunch"),
+                style: FortuneItemStyle(
+                  color: Colors.blue,
+                  // you won free lunch
+                  //index number 1
+                )),
+            FortuneItem(
+                child: Text("1 Cedi"),
+                style: FortuneItemStyle(
+                  color: Colors.yellow,
+                  // you won 1 cedis
+                  //index number 2
+                )),
+            FortuneItem(
+                child: Text("0 cedis"),
+                style: FortuneItemStyle(
+                  color: Colors.green,
+                )),
+            FortuneItem(
+                child: Text("5 cedis"),
+                style: FortuneItemStyle(
+                  color: Colors.red,
+                  // you won 5 cedis
+                  //index number 4
+                )),
+            FortuneItem(
+                child: Text("Milk Pack"),
+                style: FortuneItemStyle(
+                  color: Colors.blue,
+                  // you won milk pack
+                  //index number 5
+                )),
+            FortuneItem(
+                child: Text("0 cedis"),
+                style: FortuneItemStyle(
+                  color: Colors.yellow,
+                  // you won 0 cedis
+                  //index number 6
+                )),
+            FortuneItem(
+                child: Text("3 cedis"),
+                style: FortuneItemStyle(
+                  color: Colors.green,
+                  // you won 3 cedis
+                  //index number 7
+                )),
+            FortuneItem(
+                child: Text("Massage"),
+                style: FortuneItemStyle(
+                  color: Colors.blue,
+                )),
+            FortuneItem(
+                child: Text("Try again"),
+                style: FortuneItemStyle(
+                  color: Colors.red,
+                )),
+            FortuneItem(
+                child: Text("Happy Hour"),
+                style: FortuneItemStyle(
+                  color: Colors.yellow,
+                )),
+            FortuneItem(
+                child: Text("2 cedi"),
+                style: FortuneItemStyle(
+                  color: Colors.green,
+                )),
+            FortuneItem(
+                child: Text("13"),
+                style: FortuneItemStyle(
+                  color: Colors.blue,
+                )),
+          ],
+          onAnimationEnd: () {
+            setState(() {
+              spinCount++;
 
-  return SizedBox(
-    height: 250,
-    child: FortuneWheel(
-      selected: selected.stream,
-      animateFirst: false,
-      items: [
-      for (int i = 0; i < items.length; i++)
-        FortuneItem(child: Text(items[i].toString())),
-    ],
-    onAnimationEnd: () {
-        setState(() {
-          spinCount++;
+              if (spinCount % 10 == 0) {
+                showSnackBar(
+                    "Congratulations! You just won an additional 10 Cedis!");
+              }
 
-          if (spinCount % 10 == 0) {
-            showSnackBar("Congratulations! You just won an additional 10 Cedis!");
-          }
+              if (spinCount % 20 == 0) {
+                showSnackBar("Amazing! You just won an additional 15 Cedis!");
+              }
+            });
 
-          if (spinCount % 20 == 0) {
-            showSnackBar("Amazing! You just won an additional 15 Cedis!");
-          }
-        });
-
-        showSnackBar("You just won ${items[selected.value]} Cedis!");
-      },
-      )
-    );
-}
-
+            showSnackBar("You just won ${items[selected.value]} Cedis!");
+          },
+        ));
+  }
 
   Widget buildSpinButton() {
     return ElevatedButton(
@@ -105,18 +180,18 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
           selectedIndex = items.indexOf(11);
         } else {
           List<int> shuffledItems = items
-            .map((item) => item is int ? items.indexOf(item) : -1)
-            .toList()
-              ..removeWhere((index) => index == -1);
+              .map((item) => item is int ? items.indexOf(item) : -1)
+              .toList()
+            ..removeWhere((index) => index == -1);
           selectedIndex = shuffledItems.isNotEmpty
               ? Random().nextInt(shuffledItems.length)
               : 0;
         }
       } else {
         List<int> shuffledItems = items
-          .map((item) => item is int ? items.indexOf(item) : -1)
-          .toList()
-            ..removeWhere((index) => index == -1);
+            .map((item) => item is int ? items.indexOf(item) : -1)
+            .toList()
+          ..removeWhere((index) => index == -1);
         selectedIndex = shuffledItems.isNotEmpty
             ? Random().nextInt(shuffledItems.length)
             : 0;
@@ -127,14 +202,12 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
 
   Widget buildBottomNavigationBar() {
     return BottomNavigationBar(
-      
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.money), label: "TopUp"),
         BottomNavigationBarItem(
           icon: Icon(Icons.money_off_rounded),
           label: "CashOut",
-           ),
-           
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: "Profile",
@@ -167,7 +240,7 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
   void navigateToRegistrationPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RegistrationPage()),
+      MaterialPageRoute(builder: (context) => SignUpForm()),
     );
   }
 }

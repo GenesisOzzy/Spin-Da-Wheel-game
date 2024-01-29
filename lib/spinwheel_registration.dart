@@ -1,131 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
-
+class SignUpForm extends StatefulWidget {
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  _SignUpFormState createState() => _SignUpFormState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+class _SignUpFormState extends State<SignUpForm> {
+  final _key = GlobalKey<FormState>();
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+
+  sendEmail() async {
+    final Email email = Email(
+      subject: 'Sign Up Form Submission',
+      recipients: [
+        'abokoma.antwi@meltwater.gmail.com'
+      ], // Replace with your email
+      body: '''
+        Name: ${nameController.text}
+        Email: ${emailController.text}
+        Phone Number: ${phoneController.text}
+      ''',
+      isHTML: false,
+    );
+
+    await FlutterEmailSender.send(email);
+    // You can add a success message or navigate to a success screen here.
+    print('Sent');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        backgroundColor: Colors.black,
-        width: 300,
-        child: Column(
-          children: [
-            DrawerHeader(child: ListTile()),
-            ListTile(
-              leading: Icon(
-                Icons.settings,
-                color: Colors.white,
-                ), // Icon for Settings
-              title: Text(
-                'Settings',
-                style: TextStyle(color: Colors.white,
-                ),
-                ),
-              onTap: () {
-                // Add your settings logic here
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.info,
-                color: Colors.white, // Set the icon color to white
-              ),
-              title: Text(
-                'About',
-                style: TextStyle(
-                  color: Colors.white, // Set the text color to white
-                ),
-              ),
-              onTap: () {
-                // Add your about page logic here
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
-        title: Text('Registration'),
+        title: Text('Sign Up Form sikaaaa'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                labelText: 'Full Name',
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+          key: _key,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(labelText: 'Name'),
               ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                labelText: 'Email Address',
+              SizedBox(height: 16.0),
+              TextField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(labelText: 'Email'),
               ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: phoneController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Phone Number',
+              SizedBox(height: 16.0),
+              TextField(
+                controller: phoneController,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(labelText: 'Phone Number'),
               ),
-            ),
-            SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: () {
-                // Add your registration logic here
-                String name = nameController.text;
-                String email = emailController.text;
-                String password = phoneController.text;
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  _key.currentState!.validate();
 
-                // Display registration information (for demonstration purposes)
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Registration Successful'),
-                      content: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('Name: $name'),
-                          Text('Email: $email'),
-                          Text('Phone Number: $password'),
-                        ],
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('OK'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              child: Text('Submit Information'),
-            ),
-          ],
+                  print('''
+        Name: ${nameController.text}
+        Email: ${emailController.text}
+        Phone Number: ${phoneController.text}
+      ''');
+                  //sendEmail();
+                },
+                child: Text('Submit'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
