@@ -88,7 +88,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             SizedBox(height: 32.0),
             ElevatedButton(
               onPressed: () {
-                // Add your registration logic here
+                // Registration logic
                 String name = nameController.text;
                 String email = emailController.text;
                 String password = phoneController.text;
