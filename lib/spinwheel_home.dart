@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'package:list_projects/settings_home_page.dart';
 import 'package:list_projects/spinwheel_registration.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:math';
@@ -86,7 +87,7 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
     );
 }
 
-
+  //Spin Buttom
   Widget buildSpinButton() {
     return ElevatedButton(
       onPressed: () {
@@ -103,24 +104,26 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
       if (spinCount == 9) {
         if (Random().nextDouble() < 0.4) {
           selectedIndex = items.indexOf(11);
-        } else {
+        } 
+        else{
           List<int> shuffledItems = items
             .map((item) => item is int ? items.indexOf(item) : -1)
             .toList()
               ..removeWhere((index) => index == -1);
-          selectedIndex = shuffledItems.isNotEmpty
+              selectedIndex = shuffledItems.isNotEmpty
               ? Random().nextInt(shuffledItems.length)
               : 0;
+          }
         }
-      } else {
-        List<int> shuffledItems = items
+        else {
+          List<int> shuffledItems = items
           .map((item) => item is int ? items.indexOf(item) : -1)
           .toList()
             ..removeWhere((index) => index == -1);
-        selectedIndex = shuffledItems.isNotEmpty
+            selectedIndex = shuffledItems.isNotEmpty
             ? Random().nextInt(shuffledItems.length)
             : 0;
-      }
+        }
       selected.add(selectedIndex);
     });
   }
@@ -133,7 +136,7 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
         BottomNavigationBarItem(
           icon: Icon(Icons.money_off_rounded),
           label: "CashOut",
-           ),
+        ),
            
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
@@ -169,5 +172,10 @@ class _SpinWheelHomeState extends State<SpinWheelHome> {
       context,
       MaterialPageRoute(builder: (context) => RegistrationPage()),
     );
+  }
+
+  void navigateToSettingsPage(){
+    Navigator.push(context, 
+    MaterialPageRoute(builder: (context) => SettingsHomePage()));
   }
 }
